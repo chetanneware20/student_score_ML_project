@@ -28,7 +28,7 @@ input_data = pd.DataFrame({
 
 # EXACT order used in training
 input_data = input_data[
-    ["Assignments_Submitted", "Attendance", "Hours_Studied"]
+    ["Attendance", "Hours_Studied", "Assignments_Submitted"]
 ]
 
 if st.button("Predict Score"):
