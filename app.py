@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import pickle
 
 # ---------------------------
@@ -11,9 +10,6 @@ model_path = "Student_model (1).pkl"
 try:
     with open(model_path, "rb") as file:
         model = pickle.load(file)
-except FileNotFoundError:
-    st.error(f"Model file not found: {model_path}")
-    st.stop()
 except Exception as e:
     st.error(f"Error loading model: {e}")
     st.stop()
@@ -22,22 +18,18 @@ st.title("📘 Student Score Prediction App")
 st.write("Enter the student's details below to get the predicted score.")
 
 # -------------------------------------
-# Create input fields for user data
-# (You can modify these based on your features)
+# Input fields matching the model's features
 # -------------------------------------
-st.subheader("Enter Input Features")
+Assignments_Submitted = st.number_input("Assignments Submitted", min_value=0.0)
+Attendance = st.number_input("Attendance (%)", min_value=0.0, max_value=100.0)
+Hours_Studied = st.number_input("Hours Studied", min_value=0.0)
 
-# Example feature fields — adjust to match your model
-feature1 = st.number_input("Feature 1", value=0.0)
-feature2 = st.number_input("Feature 2", value=0.0)
-feature3 = st.number_input("Feature 3", value=0.0)
-
-# Create a dataframe for prediction
+# Make input dataframe with EXACT feature names
 input_data = pd.DataFrame(
     {
-        "Feature1": [feature1],
-        "Feature2": [feature2],
-        "Feature3": [feature3],
+        "Assignments_Submitted": [Assignments_Submitted],
+        "Attendance": [Attendance],
+        "Hours_Studied": [Hours_Studied],
     }
 )
 
